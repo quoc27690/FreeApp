@@ -13,10 +13,10 @@ export const getLabelBottomTab = (route: any) => {
   let labelScreen = null;
   switch (route.name) {
     case SCREEN_NAME.HOME:
-      labelScreen = <Text>{TEXT.HOME} 111</Text>;
+      labelScreen = <Text>{TEXT.HOME}</Text>;
       break;
     case SCREEN_NAME.PROFILE:
-      labelScreen = <Text>{TEXT.PROFILE} 111</Text>;
+      labelScreen = <Text>{TEXT.PROFILE}</Text>;
       break;
   }
   return labelScreen;
