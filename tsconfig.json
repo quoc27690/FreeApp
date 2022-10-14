@@ -5,6 +5,15 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+
+    // Path alias config
+    "baseUrl": ".",
+    "paths": {
+			"@screen/*": ["./app/screen/*"],
+			"@navigation/*": ["./app/navigation/*"],
+			"@constants/*": ["./app/constants/*"],
+			"@themes/*": ["./app/themes/*"],
+    }
   }
 }
