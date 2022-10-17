@@ -11,6 +11,7 @@ module.exports = {
           '@navigation': './app/navigation',
           '@constants': './app/constants',
           '@themes': './app/themes',
+          '@assets': './app/assets',
         },
       },
     ],
