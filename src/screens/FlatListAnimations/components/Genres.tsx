@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { IMovie } from '..';
 
 export type Props = {
-  genres: [];
+  genres: IMovie['genres'];
 };
 const Genres: React.FC<Props> = ({ genres }) => {
   return (
     <View style={styles.genres}>
-      {genres.map((genre, i) => {
+      {genres.map(genre => {
         return (
           <View key={genre} style={styles.genre}>
             <Text style={styles.genreText}>{genre}</Text>

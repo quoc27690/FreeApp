@@ -1,20 +1,18 @@
 import * as React from 'react';
 import {
-  StatusBar,
-  Text,
-  View,
-  StyleSheet,
+  Animated,
+  Dimensions,
   FlatList,
   Image,
-  Dimensions,
-  Animated,
-  TouchableOpacity,
   Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { getMovies } from './api';
-import Genres from './components/Genres';
 import Rating from './components/Rating';
+import Genres from './components/Genres';
 
 const { width, height } = Dimensions.get('window');
 const SPACING = 10;
@@ -28,9 +26,20 @@ const Loading = () => (
   </View>
 );
 
-const Backdrop = ({ movies, scrollX }) => {
+export interface IMovie {
+  key: string;
+  backdrop: string;
+  poster: string;
+  title: string;
+  genres: string[];
+  rating: number;
+  description: string;
+}
+
+const Backdrop = (props: { movies: IMovie[]; scrollX: Animated.Value }) => {
+  const { movies, scrollX } = props;
   return (
-    <View style={{ height: BACKDROP_HEIGHT, width, position: 'absolute' }}>
+    <View style={styles.backdropContainer}>
       <FlatList
         data={movies.reverse()}
         keyExtractor={item => item.key + '-backdrop'}
@@ -48,6 +57,7 @@ const Backdrop = ({ movies, scrollX }) => {
           return (
             <Animated.View
               removeClippedSubviews={false}
+              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 position: 'absolute',
                 width: translateX,
@@ -57,23 +67,10 @@ const Backdrop = ({ movies, scrollX }) => {
             >
               <Image
                 source={{ uri: item.backdrop }}
-                style={{
-                  width,
-                  height: BACKDROP_HEIGHT,
-                  position: 'absolute',
-                }}
+                style={styles.backdropImage}
               />
             </Animated.View>
           );
-        }}
-      />
-      <LinearGradient
-        colors={['rgba(0, 0, 0, 0)', 'white']}
-        style={{
-          height: BACKDROP_HEIGHT,
-          width,
-          position: 'absolute',
-          bottom: 0,
         }}
       />
     </View>
@@ -81,14 +78,14 @@ const Backdrop = ({ movies, scrollX }) => {
 };
 
 const FlatListAnimations = () => {
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = React.useState<IMovie[]>([]);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   React.useEffect(() => {
     const fetchData = async () => {
-      const movies = await getMovies();
+      const newMovies = await getMovies();
       // Add empty items to create fake space
       // [empty_item, ...movies, empty_item]
-      setMovies([{ key: 'empty-left' }, ...movies, { key: 'empty-right' }]);
+      setMovies([{ key: 'empty-left' }, ...newMovies, { key: 'empty-right' }]);
     };
 
     if (movies.length === 0) {
@@ -112,7 +109,7 @@ const FlatListAnimations = () => {
         bounces={false}
         decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
         renderToHardwareTextureAndroid
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={styles.contentContainerStyle}
         snapToInterval={ITEM_SIZE}
         snapToAlignment="start"
         onScroll={Animated.event(
@@ -140,6 +137,7 @@ const FlatListAnimations = () => {
           return (
             <View style={{ width: ITEM_SIZE }}>
               <Animated.View
+                // eslint-disable-next-line react-native/no-inline-styles
                 style={{
                   marginHorizontal: SPACING,
                   padding: SPACING * 2,
@@ -192,6 +190,25 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     margin: 0,
     marginBottom: 10,
+  },
+  backdropContainer: {
+    height: BACKDROP_HEIGHT,
+    width,
+    position: 'absolute',
+  },
+  backdropImage: {
+    width,
+    height: BACKDROP_HEIGHT,
+    position: 'absolute',
+  },
+  backdropLinearGradient: {
+    height: BACKDROP_HEIGHT,
+    width,
+    position: 'absolute',
+    bottom: 0,
+  },
+  contentContainerStyle: {
+    alignItems: 'center',
   },
 });
 

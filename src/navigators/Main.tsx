@@ -1,7 +1,6 @@
 import React from 'react';
-import { Example } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
-import FlatListAnimations from '../screens/FlatListAnimations';
+import FlatListAnimations from '@/screens/FlatListAnimations';
 
 const Stack = createStackNavigator();
 

@@ -13,7 +13,7 @@ import {
 } from 'redux-persist';
 import { MMKV } from 'react-native-mmkv';
 
-import { api } from '../services/api';
+import { api } from '@/services/api';
 import theme from './theme';
 
 const reducers = combineReducers({

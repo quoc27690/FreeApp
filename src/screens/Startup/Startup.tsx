@@ -1,9 +1,9 @@
+import { Brand } from '@/components';
+import { useTheme } from '@/hooks';
+import { setDefaultTheme } from '@/store/theme';
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { useTheme } from '../../hooks';
-import { Brand } from '../../components';
-import { setDefaultTheme } from '../../store/theme';
-import { ApplicationScreenProps } from '../../../@types/navigation';
+import { ApplicationScreenProps } from 'types/navigation';
 
 const Startup = ({ navigation }: ApplicationScreenProps) => {
   const { Layout, Gutters } = useTheme();

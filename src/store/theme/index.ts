@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import themes from '../../theme/themes';
+import themes from '@/theme/themes';
 
 const slice = createSlice({
   name: 'theme',

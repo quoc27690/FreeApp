@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons/faStar';
+import { faStar } from '@fortawesome/free-regular-svg-icons/faStar';
+import { IMovie } from '..';
 
 export type Props = {
-  rating: number;
+  rating: IMovie['rating'];
 };
 
 const Rating: React.FC<Props> = ({ rating }) => {
   const filledStars = Math.floor(rating / 2);
-  const maxStars = Array(5 - filledStars).fill('staro');
-  const r = [...Array(filledStars).fill('star'), ...maxStars];
+  const maxStars = Array(5 - filledStars).fill(faStar);
+  const r = [...Array(filledStars).fill(faStarSolid), ...maxStars];
 
   return (
     <View style={styles.rating}>
       <Text style={styles.ratingNumber}>{rating}</Text>
       {r.map((type, index) => {
-        return <Icon key={index} name={type} size={12} color="tomato" />;
+        return (
+          <FontAwesomeIcon key={index} icon={type} size={12} color="tomato" />
+        );
       })}
     </View>
   );

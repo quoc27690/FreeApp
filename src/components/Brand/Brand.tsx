@@ -1,6 +1,6 @@
+import { useTheme } from '@/hooks';
 import React from 'react';
 import { View, Image } from 'react-native';
-import { useTheme } from '../../hooks';
 
 type Props = {
   height?: number | string;
